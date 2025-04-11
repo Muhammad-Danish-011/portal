@@ -26,7 +26,7 @@ export interface ICar extends Document {
 }
 
 // Define the Car schema
-const carSchema: Schema<ICar> = new Schema(
+export const carSchema: Schema<ICar> = new Schema(
   {
     stockId: { type: String, required: true },
     modelName: { type: String, required: true }, // Changed from model to modelName
