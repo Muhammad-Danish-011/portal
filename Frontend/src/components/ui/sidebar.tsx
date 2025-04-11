@@ -1,9 +1,9 @@
 import React from 'react';
-import { Car } from "@/models/car";
+import { ICar } from "@/models/car";
 
 interface SidebarProps {
-    cars: Car[];
-    onCarClick: (car: Car) => void;
+    cars: ICar[];
+    onCarClick: (car: ICar) => void;
     onLogout: () => void; // Added logout handler prop
 }
 
@@ -24,7 +24,7 @@ const Sidebar: React.FC<SidebarProps> = ({ cars, onCarClick, onLogout }) => {
                         onClick={() => onCarClick(car)}
                     >
                         <div className="font-medium">{car.make}</div>
-                        <div className="text-sm text-gray-400">{car.model}</div>
+                        <div className="text-sm text-gray-400">{car.modelName}</div>
                     </li>
                 ))}
             </ul>
