@@ -97,7 +97,9 @@ const SignIn = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <Button className="w-full" size="lg" disabled={pending}>
+            <Button  className="mt-6 w-full p-3 rounded-xl bg-red-100 text-red-600
+              hover:bg-red-200 transition-all duration-300
+              flex items-center justify-center gap-2 font-semibold" size="lg" disabled={pending}>
               Continue
             </Button>
           </form>

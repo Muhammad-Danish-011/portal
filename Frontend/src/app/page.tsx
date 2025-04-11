@@ -1,5 +1,5 @@
 "use client";
-import UserButton from "@/components/user-button"; // Assuming this button shows the user info
+import UserButton from "@/components/home"; // Assuming this button shows the user info
 
 const Home = () => {
 

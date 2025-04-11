@@ -137,12 +137,12 @@ export default function Dashboard() {
      if (!response.ok) {
         const error = await response.json();
         console.log("Failed to create car", error);
-        toast.error(`❌ ${error instanceof Error ? error.message : "Error submitting form"}`);
+        toast.error(` ${error instanceof Error ? error.message : "Error submitting form"}`);
       }
 
       const result = await response.json();
       console.log("Car created successfully:", result);
-      toast.success("✅ Car registered successfully!");
+      toast.success(" Car registered successfully!");
 
       setFormData({
         stockId: "",
