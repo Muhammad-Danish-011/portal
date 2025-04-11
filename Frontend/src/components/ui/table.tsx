@@ -14,7 +14,7 @@ export const CarDetailsTable: React.FC<CarDetailsTableProps> = ({ car }) => {
 
   return (
     <div className="overflow-x-auto bg-white p-6 rounded-lg shadow-lg">
-      <h3 className="text-2xl font-semibold mb-4 text-center text-blue-600">Car Details</h3>
+      <h3 className="text-2xl font-semibold mb-4 text-center text-black-600">Car Details</h3>
       
       {/* Display car image */}
       <div className="flex justify-center mb-6">

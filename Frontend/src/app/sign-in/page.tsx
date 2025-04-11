@@ -45,10 +45,13 @@ const SignIn = () => {
             toast.success("Login successful");
         } else {
             setError("Invalid credentials or missing access token");
+            toast.error("Invalid credentials");
         }
     } catch (error) {
         console.error("Error during authentication:", error);
         setError("Something went wrong. Please try again later.");
+
+        toast.error("Authentication failed. Please try again.");
     }
     setPending(false);
 };

@@ -31,11 +31,33 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* Wrap client-side logic with SessionProviderWrapper */}
-        {/* <SessionProviderWrapper> */}
-          <Toaster />
-          {children}
-        {/* </SessionProviderWrapper> */}
+        <Toaster
+          position="bottom-right"
+          visibleToasts={1}
+          duration={3000}
+          expand={true}
+          richColors // enables default green/red tones
+          toastOptions={{
+            style: {
+              background: 'red', color: '#f3f4f6',
+              border: '1px solid rgb(81, 57, 55)',
+              borderRadius: '10px',
+              fontWeight: 'bold',
+              fontSize: '16px',
+              padding: '16px 20px',
+              boxShadow: '0 8px 12px -2px rgba(0,0,0,0.4)',
+            },
+            classNames: {
+              error:
+                'bg-red-600 text-white border border-red-800 shadow-lg animate-slide-in',
+              success:
+                'bg-green-600 text-white border border-green-800 shadow-lg animate-slide-in',
+            },
+          }}
+        />
+
+
+        {children}
       </body>
     </html>
   );

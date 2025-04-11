@@ -10,6 +10,7 @@ import StatCard from "@/components/functional/statCard";
 import { CarDetailsTable } from "@/components/ui/table"; // Ensure correct import
 import FormInputGrid from "@/components/functional/formInputGrid";
 import { getUserIdFromToken } from "@/utils/getUserIdFromToken";
+import { toast } from "sonner";
 
 export default function Dashboard() {
   const [token, setToken] = useState<string | null>(null);
@@ -107,7 +108,7 @@ export default function Dashboard() {
             setCars(data.cars); // ✅ Correctly accessing the cars array
         } else {
             setCars([]); // No cars found or bad format
-            console.error('Fetched data is not an array:', data);
+            // console.error('Fetched data is not an array:', data);
         }
     } catch (error) {
         console.error('Error fetching cars:', error);
@@ -133,13 +134,15 @@ export default function Dashboard() {
         body: JSON.stringify(carData),
       });
 
-      if (!response.ok) {
+     if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.message || "Failed to create car");
+        console.log("Failed to create car", error);
+        toast.error(`❌ ${error instanceof Error ? error.message : "Error submitting form"}`);
       }
 
       const result = await response.json();
       console.log("Car created successfully:", result);
+      toast.success("✅ Car registered successfully!");
 
       setFormData({
         stockId: "",
@@ -164,11 +167,9 @@ export default function Dashboard() {
         userId: userId || "", // Ensure userId is set
       });
 
-      setShowForm(false);
       fetchCars();
     } catch (error) {
       console.error("Error creating car:", error);
-      setError(error instanceof Error ? error.message : "Error creating car");
     }
   };
 
@@ -182,88 +183,91 @@ export default function Dashboard() {
 
   if (isLoading) return <LoadingSpinner />;
   if (!token) return <AccessRequired />;
-  if (error) return <AccessRequired />;
+
 
   const recentCar = cars.length > 0 ? cars[cars.length - 1] : null;
   const cityCount = Array.isArray(cars) ? new Set(cars.map((car) => car.registrationCity)).size : 0;
   
 
   return (
-    <div className="min-h-screen bg-gray-900 py-12 px-4 flex">
-      <Sidebar
-        cars={cars}
-        onCarClick={setSelectedCar}
-        onLogout={() => {
-          localStorage.removeItem("token");
-          router.push("/");
-        }}
-      />
-      <div className="flex-1 p-8 bg-white shadow-2xl rounded-3xl border border-gray-200">
-        <h2 className="text-4xl font-extrabold mb-8 text-black">
-         Car Registration Dashboard ✨
+    <div className="min-h-screen bg-gray-900 p-0 flex">
+    <Sidebar
+      cars={cars}
+      onCarClick={setSelectedCar}
+      onLogout={() => {
+        localStorage.removeItem("token");
+        router.push("/");
+      }}
+      children={undefined}
+    />
+  
+    {/* Remove rounded and margin */}
+    <div className="flex-1 bg-white shadow-2xl border border-gray-200">
+      <div className="p-8">
+        <h2 className="text-4xl font-extrabold mb-8 text-black text-center">
+          Car Registration Dashboard ✨
         </h2>
-
+  
         {error && <div className="text-red-500 mb-4">Error: {error}</div>}
-
+  
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           <StatCard
             title="Latest Car Registered"
             value={recentCar ? `${recentCar.make} ${recentCar.modelName}` : "No cars yet"}
-            fromColor="green-500"
-            toColor="emerald-500"
+            fromColor="black"
+            toColor="black"
           />
           <StatCard
             title="Total Cars Registered"
             value={cars.length.toString()}
-            fromColor="gray-900"
-            toColor="purple-900"
+            fromColor="black"
+            toColor="black"
           />
           <StatCard
             title="Cities Registered From"
             value={cityCount.toString()}
-            fromColor="blue-500"
-            toColor="red-500"
+            fromColor="black"
+            toColor="black"
           />
         </div>
-
+  
         {showForm && (
           <form onSubmit={handleSubmit} className="mt-8 space-y-6">
             <FormInputGrid
               formData={formData}
               handleChange={handleChange}
               handleBooleanChange={(name: string, value: boolean) => {
-                setFormData((prev) => ({
-                  ...prev,
-                  [name]: value,
-                }));
+                setFormData((prev) => ({ ...prev, [name]: value }));
               }}
               handleValueChange={(name: string, value: string) => {
-                setFormData((prev) => ({
-                  ...prev,
-                  [name]: value,
-                }));
+                setFormData((prev) => ({ ...prev, [name]: value }));
               }}
             />
             <Button
               type="submit"
-              className="w-full bg-gradient-to-r from-green-500 to-emerald-500 text-white py-3 rounded-xl font-semibold"
+              className="mt-6 w-full p-3 rounded-xl bg-red-100 text-red-600
+                hover:bg-red-200 transition-all duration-300
+                flex items-center justify-center gap-2 font-semibold"
             >
               Submit
             </Button>
           </form>
         )}
-
+  
         <div className="flex justify-end mb-6 sticky top-0 z-10 bg-white py-4">
           <Button
             onClick={() => setShowForm(!showForm)}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg"
+            className="mt-6 w-full p-3 rounded-xl bg-red-100 text-red-600
+              hover:bg-red-200 transition-all duration-300
+              flex items-center justify-center gap-2 font-semibold"
           >
             {showForm ? "Close Form" : "Add New Car"}
           </Button>
         </div>
-
+  
         {selectedCar && <CarDetailsTable car={selectedCar} />}
       </div>
     </div>
-  );
-}
+  </div>
+  
+  )}

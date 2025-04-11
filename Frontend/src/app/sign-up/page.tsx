@@ -53,8 +53,12 @@ const SignUp = () => {
     } else if (res.status === 400) {
       setError(data.message);
       setPending(false);
+      toast.error(`❌ ${data.message} Error submitting sigup`);
+
     } else if (res.status === 500) {
       setError(data.message);
+      toast.error(`❌ Error submitting sigup`);
+
       setPending(false);
     }
   };
