@@ -1,13 +1,37 @@
+// carRoutes.js
 const express = require('express');
-const { getCars } = require('../Controllers/carController');
-const carController = require('../Controllers/carController');
+const { getCars, createCar } = require('../Controllers/carController');
+const { ensureAuthenticated } = require('../Middlewares/ensureAuthenticated');
+const Car = require('../Models/carModel'); // Import your Car model
+
 const router = express.Router();
 
-// Route to get all cars
-router.get('/cars', getCars);
+// Get all cars for the logged-in user
+router.get('/cars', ensureAuthenticated, getCars);
+
+// Create a new car listing
+router.post('/cars', ensureAuthenticated, createCar);
+
+// Fetch cars for a specific user
+router.get("/user", ensureAuthenticated, async (req, res) => {
+    try {
+        const userId = req.user._id;  // Use _id from the decoded token
+        console.log("UserID:", userId);  // Log user ID to verify it's correct
+        
+        const cars = await Car.find({ userId });  // Filter cars by userId
+        console.log("Fetched Cars:", cars);  // Log the fetched cars to see the result
+
+        if (!cars || cars.length === 0) {
+            return res.status(404).json({ message: "No cars found for this user" });
+        }
+
+        return res.status(200).json({ cars });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: "Failed to fetch cars", error: err.message });
+    }
+});
 
 
-// Route to create a new car
-router.post('/cars', carController.createCar);
 
 module.exports = router;

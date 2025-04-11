@@ -1,16 +1,13 @@
-import { Car } from '@/app/dashboard/types/carTypes';
-import React from 'react';
-
+import { Car } from "@/app/dashboard/types/carTypes";
 
 export interface CarDetailsTableProps {
-  car: Car;
+  car: Car; // Accept a single car object
 }
 
-const CarDetailsTable: React.FC<CarDetailsTableProps> = ({ car }) => {
-  // Dynamically map car properties to table rows, handling optional values
+export const CarDetailsTable: React.FC<CarDetailsTableProps> = ({ car }) => {
+  // Handle mapping and display details for a single car
   const carDetails = Object.keys(car).map((key) => {
     const label = key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1');
-    // Use a fallback for undefined values
     const value = car[key as keyof Car] ?? 'N/A'; 
     return { label, value };
   });
@@ -18,6 +15,12 @@ const CarDetailsTable: React.FC<CarDetailsTableProps> = ({ car }) => {
   return (
     <div className="overflow-x-auto bg-white p-6 rounded-lg shadow-lg">
       <h3 className="text-2xl font-semibold mb-4 text-center text-blue-600">Car Details</h3>
+      
+      {/* Display car image */}
+      <div className="flex justify-center mb-6">
+        <img src={car.imageUrl || "https://via.placeholder.com/150"} alt={car.modelName} className="max-w-xs rounded-lg shadow-lg" />
+      </div>
+
       <table className="min-w-full table-auto border-separate border-spacing-0.5 rounded-lg">
         <thead>
           <tr>
@@ -34,15 +37,6 @@ const CarDetailsTable: React.FC<CarDetailsTableProps> = ({ car }) => {
           ))}
         </tbody>
       </table>
-
-      {/* Display image if exists */}
-      {car.imageUrl && (
-        <div className="mt-4">
-          <img src={car.imageUrl} alt={`${car.make} ${car.model}`} className="w-full rounded-lg shadow-md" />
-        </div>
-      )}
     </div>
   );
 };
-
-export default CarDetailsTable;

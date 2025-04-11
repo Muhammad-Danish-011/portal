@@ -39,6 +39,8 @@ const SignIn = () => {
         if (response.data && response.data.accessToken) {
             // Assuming successful login, store the token
             localStorage.setItem("token", response.data.accessToken);
+            localStorage.setItem("userId", response.data.user.id); // 👈 store userId
+
             router.push("/dashboard"); // Redirect to the dashboard page
             toast.success("Login successful");
         } else {

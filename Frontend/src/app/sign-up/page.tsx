@@ -22,7 +22,6 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { TriangleAlert } from "lucide-react";
-import { signIn } from "next-auth/react";
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -160,3 +159,7 @@ const SignUp = () => {
 };
 
 export default SignUp;
+function signIn(value: string, arg1: { callbackUrl: string; }) {
+  throw new Error("Function not implemented.");
+}
+

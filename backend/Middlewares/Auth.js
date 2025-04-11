@@ -1,19 +1,17 @@
-
 const jwt = require('jsonwebtoken');
-const ensureAuthenticated = (req, res, next) => {
-    const auth = req.headers['authorization'];
-    if (!auth) {
-        return res.status(403)
-            .json({ message: 'Unauthorized, JWT token is require' });
+
+const authMiddleware = (req, res, next) => {
+    const token = req.header('Authorization');
+    if (!token) {
+        return res.status(401).json({ message: 'No token, authorization denied' });
     }
+
     try {
-        const decoded = jwt.verify(auth, process.env.JWT_SECRET);
-        req.user = decoded;
+        const decoded = jwt.verify(token, 'your_secret_key');  // Secret key ko aapko apne JWT se match karna hoga
+        req.user = decoded.user;  // User ki info ko request mein attach karen
         next();
     } catch (err) {
-        return res.status(403)
-            .json({ message: 'Unauthorized, JWT token wrong or expired' });
+        res.status(401).json({ message: 'Token is not valid' });
     }
-}
-
-module.exports = ensureAuthenticated;
+};
+module.exports = { authMiddleware}

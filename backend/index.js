@@ -3,7 +3,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const AuthRouter = require('./Routes/AuthRouter');
-const ProductRouter = require('./Routes/ProductRouter');
 const carRoutes = require('./Routes/carRoutes');  // Import carRoutes
 
 require('dotenv').config();
@@ -22,9 +21,8 @@ app.use(cors());
 
 // Register the routes
 app.use('/auth', AuthRouter);
-app.use('/products', ProductRouter);
 app.use('/api', carRoutes);  // Register car routes under '/api'
-
+app.use('/api/cars', carRoutes);
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

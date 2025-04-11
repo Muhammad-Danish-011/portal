@@ -1,7 +1,7 @@
 
 export type Car = {
     stockId: string;
-    model: string;
+    modelName: string;
     mileage: number;
     trim: string;
     additionalInfoEn: string;

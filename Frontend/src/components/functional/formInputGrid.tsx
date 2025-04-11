@@ -5,6 +5,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radioGroup";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 
+
 interface FormData {
   stockId: string;
   make: string;
@@ -36,12 +37,19 @@ interface FormInputGridProps {
   handleValueChange: (name: string, value: string) => void;
 }
 
+
+
 const FormInputGrid: React.FC<FormInputGridProps> = ({
   formData,
   handleChange,
   handleBooleanChange,
   handleValueChange,
+
+
+
 }) => (
+
+
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <div className="bg-white shadow-lg rounded-lg space-y-8 p-6">
       {/* GENERAL CAR DETAILS */}
@@ -341,18 +349,22 @@ const FormInputGrid: React.FC<FormInputGridProps> = ({
               className="w-full"
             />
           </div>
-
           <div className="space-y-2">
-            <Label htmlFor="userId" className="text-gray-700">User ID</Label>
+            {/* User ID is auto-filled from logged in user */}
+            <label htmlFor="userId" className="text-sm font-medium text-gray-700">
+              User ID
+            </label>
             <Input
               id="userId"
               name="userId"
               value={formData.userId}
               onChange={handleChange}
-              placeholder="Enter User ID"
+              placeholder="Auto-filled from logged in user"
               className="w-full"
+              disabled
             />
           </div>
+
         </div>
       </div>
     </div>

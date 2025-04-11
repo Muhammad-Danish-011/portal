@@ -55,7 +55,11 @@ const login = async (req, res) => {
       await user.save();
   
       // Send response with tokens
-      res.status(200).json({ success: true, accessToken, refreshToken });
+      res.status(200).json({ success: true, accessToken, refreshToken , user: {
+        id: user._id,
+        email: user.email,
+        name: user.name // if needed
+    }});
     } catch (err) {
       console.error('Error during login:', err);
       res.status(500).json({ message: 'Internal server error', success: false });

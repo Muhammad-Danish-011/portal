@@ -2,8 +2,10 @@ const mongoose = require('mongoose');
 
 const carSchema = new mongoose.Schema({
     modelName: { type: String, required: true },
-    userId: { type: String, required: true },
-    transmission: { type: String, required: true },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,  
+        ref: 'User', 
+    },    transmission: { type: String, required: true },
     fuelType: { type: String, required: true },
     color: { type: String, required: true },
     // Optional fields
