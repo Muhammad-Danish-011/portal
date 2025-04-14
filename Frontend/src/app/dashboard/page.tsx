@@ -101,9 +101,9 @@ export default function Dashboard() {
         if (res.status === 401 || data.message === 'Unauthorized, JWT token is wrong or expired') {
             setIsLoading(false);
             setError("Unauthorized, JWT token is wrong or expired");
-            return;
+            toast.error("Unauthorized, JWT token is wrong or expired");
+            router.push('/'); // Redirect to login page after showing error         
         }
-
         if (Array.isArray(data.cars)) {
             setCars(data.cars); // ✅ Correctly accessing the cars array
         } else {
@@ -137,12 +137,12 @@ export default function Dashboard() {
      if (!response.ok) {
         const error = await response.json();
         console.log("Failed to create car", error);
-        toast.error(` ${error instanceof Error ? error.message : "Error submitting form"}`);
+        toast.error(`❌ ${error instanceof Error ? error.message : "Error submitting form"}`);
       }
 
       const result = await response.json();
       console.log("Car created successfully:", result);
-      toast.success(" Car registered successfully!");
+      toast.success("✅ Car registered successfully!");
 
       setFormData({
         stockId: "",
@@ -204,7 +204,7 @@ export default function Dashboard() {
     {/* Remove rounded and margin */}
     <div className="flex-1 bg-white shadow-2xl border border-gray-200">
       <div className="p-8">
-        <h2 className="text-4xl font-extrabold mb-8 text-black text-center">
+        <h2 className="text-4xl font-extrabold mb-8 text-black">
           Car Registration Dashboard ✨
         </h2>
   
