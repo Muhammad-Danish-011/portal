@@ -8,14 +8,14 @@
             "name": "Launch Chrome",
             "request": "launch",
             "type": "chrome",
-            "url": "https://backend-portal-chi.vercel.app/",
+            "url": "https://backend-portal-chi.vercel.app",
             "webRoot": "${workspaceFolder}"
         },
         {
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
-            "url": "https://backend-portal-chi.vercel.app/",
+            "url": "https://backend-portal-chi.vercel.app",
             "webRoot": "${workspaceFolder}"
         }
     ]
