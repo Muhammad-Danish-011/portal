@@ -17,8 +17,8 @@ router.get("/user", ensureAuthenticated, async (req, res) => {
     try {
         const userId = req.user._id;  // Use _id from the decoded token
         console.log("UserID:", userId);  // Log user ID to verify it's correct
-        
-        const cars = await Car.find({ userId });  // Filter cars by userId
+
+        const cars = await Car.find({ userId }).select("-imageBase64");  // Exclude base64 image from response
         console.log("Fetched Cars:", cars);  // Log the fetched cars to see the result
 
         if (!cars || cars.length === 0) {
@@ -31,7 +31,5 @@ router.get("/user", ensureAuthenticated, async (req, res) => {
         return res.status(500).json({ message: "Failed to fetch cars", error: err.message });
     }
 });
-
-
 
 module.exports = router;

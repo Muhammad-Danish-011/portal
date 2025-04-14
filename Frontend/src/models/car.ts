@@ -18,8 +18,9 @@ export interface ICar extends Document {
   vinNumber?: string;
   numberOfDoors?: string;
   engineSize?: string;
-  imageUrl?: string;
+  // imageUrl?: string;
   userId?: string;
+  imageBase64?: string;
   transmission?: string;
   fuelType?: string;
   color?: string;
@@ -44,7 +45,9 @@ export const carSchema: Schema<ICar> = new Schema(
     vinNumber: { type: String, required: false },
     numberOfDoors: { type: String, required: false },
     engineSize: { type: String, required: false },
-    imageUrl: { type: String, required: false },
+    // imageUrl: { type: String, required: false },
+    imageBase64: { type: String, required: true },
+
     userId: { type: String, required: false },
     transmission: { type: String, required: false },
     fuelType: { type: String, required: false },

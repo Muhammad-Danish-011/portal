@@ -21,7 +21,9 @@ interface FormData {
   description: string;
   engineSize?: string;
   exportOption?: string;
-  imageUrl: string;
+  // imageUrl: string;
+  imageBase64?: string;
+
   vinNumber?: string;
   numberOfDoors?: number;
   color: string;
@@ -35,18 +37,15 @@ interface FormInputGridProps {
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleBooleanChange: (name: string, value: boolean) => void;
   handleValueChange: (name: string, value: string) => void;
+  handleImageUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
-
-
 
 const FormInputGrid: React.FC<FormInputGridProps> = ({
   formData,
   handleChange,
   handleBooleanChange,
   handleValueChange,
-
-
-
+  handleImageUpload
 }) => (
 
 
@@ -327,15 +326,19 @@ const FormInputGrid: React.FC<FormInputGridProps> = ({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="imageUrl" className="text-gray-700">Image URL</Label>
-            <Input
+            {/* <Label htmlFor="imageUrl" className="text-gray-700">Image URL</Label> */}
+            {/* <Input
               id="imageUrl"
               name="imageUrl"
               value={formData.imageUrl}
               onChange={handleChange}
               placeholder="Enter Image URL"
               className="w-full"
-            />
+            /> */}
+            <Label htmlFor="imageUrl" className="text-gray-700">Image Upload</Label>
+            <br />
+            <input type="file" accept="image/*" onChange={handleImageUpload} />
+
           </div>
 
           <div className="space-y-2">

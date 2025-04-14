@@ -56,30 +56,31 @@ const Sidebar: React.FC<SidebarProps> = ({ cars, onCarClick, onLogout, children 
   
     {/* Sidebar Toggle Button */}
     <button
-      onClick={() => setIsOpen(!isOpen)}
-      className={`fixed top-6 z-50 transition-all duration-300 
-        ${isOpen ? 'left-[320px]' : 'left-0'} group/toggler`}
+  onClick={() => setIsOpen(!isOpen)}
+  className={`fixed top-0 z-50 transition-all duration-300 
+    ${isOpen ? 'left-[320px]' : 'left-0'} group/toggler`}
+>
+  <div
+    className="bg-white text-gray-700 hover:bg-black hover:text-white 
+    hover:scale-110 transform transition-all duration-300 
+    p-2 rounded-md shadow-md border border-gray-300"
+  >
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
     >
-      <div
-        className="bg-white text-gray-700 hover:bg-black hover:text-white 
-        hover:scale-110 transform transition-all duration-300 
-        p-2 rounded-md shadow-md border border-gray-300"
-      >
-        <svg
-          className="w-6 h-6"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          viewBox="0 0 24 24"
-        >
-          {isOpen ? (
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-          ) : (
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-          )}
-        </svg>
-      </div>
-    </button>
+      {isOpen ? (
+        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+      ) : (
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      )}
+    </svg>
+  </div>
+</button>
+
   
     {/* Main Content */}
     <main
