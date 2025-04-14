@@ -33,7 +33,7 @@ const SignIn = () => {
     console.log({ email, password });
 
     try {
-        const response = await axios.post("http://localhost:8080/auth/login", { email, password });
+        const response = await axios.post("https://portal-62zk.vercel.app/auth/login", { email, password });
         console.log("Response:", response.data);  // Log the response to see the result
 
         if (response.data && response.data.accessToken) {

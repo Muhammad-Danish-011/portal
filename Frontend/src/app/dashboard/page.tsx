@@ -89,7 +89,7 @@ export default function Dashboard() {
         }
 
         try {
-            const res = await fetch("http://localhost:8080/api/cars/user", {
+            const res = await fetch("https://portal-62zk.vercel.app/api/cars/user", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
@@ -118,15 +118,12 @@ export default function Dashboard() {
         }
     };
 
-
-
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const carData = { ...formData };
 
         try {
-            const response = await fetch("http://localhost:8080/api/cars", {
+            const response = await fetch("https://portal-62zk.vercel.app/api/cars", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

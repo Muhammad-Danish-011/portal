@@ -15,7 +15,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
-            "url": "http://localhost:8080",
+            "url": "https://portal-62zk.vercel.app",
             "webRoot": "${workspaceFolder}"
         }
     ]
