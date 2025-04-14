@@ -89,7 +89,7 @@ export default function Dashboard() {
         }
 
         try {
-            const res = await fetch("https://portal-62zk.vercel.app/api/cars/user", {
+            const res = await fetch("https://backend-portal-chi.vercel.app//api/cars/user", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json",
@@ -123,7 +123,7 @@ export default function Dashboard() {
         const carData = { ...formData };
 
         try {
-            const response = await fetch("https://portal-62zk.vercel.app/api/cars", {
+            const response = await fetch("https://backend-portal-chi.vercel.app//api/cars", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
