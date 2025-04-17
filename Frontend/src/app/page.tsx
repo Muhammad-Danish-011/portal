@@ -1,14 +1,13 @@
 "use client";
-import UserButton from "@/components/home"; // Assuming this button shows the user info
+import Home from "@/components/home"; // Assuming this button shows the user info
 
-const Home = () => {
+const page = () => {
 
   return (
     <div>
-      {/* Pass the session prop to UserButton */}
-      <UserButton  />
+      <Home  />
     </div>
   );
 };
 
-export default Home;
+export default page;

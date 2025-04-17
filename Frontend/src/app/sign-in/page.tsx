@@ -18,67 +18,76 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { TriangleAlert } from "lucide-react";
-import axios from "axios"; // Axios import for backend requests
+import axios from "axios";
+import Logo from "@/components/ui/logo";
 
 const SignIn = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [pending, setPending] = useState(false);
-  const router = useRouter();
   const [error, setError] = useState("");
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setPending(true);
-    console.log({ email, password });
-
     try {
-        const response = await axios.post("https://backend-portal-l8rn.onrender.com/auth/login", { email, password });
-        console.log("Response:", response.data);  // Log the response to see the result
+      const response = await axios.post("http://localhost:8080/auth/login", { email, password });
+      if (response.data?.accessToken) {
+        localStorage.setItem("token", response.data.accessToken);
+        localStorage.setItem("userId", response.data.user.id);
+        localStorage.setItem("userName", response.data.user.name);
 
-        if (response.data && response.data.accessToken) {
-            // Assuming successful login, store the token
-            localStorage.setItem("token", response.data.accessToken);
-            localStorage.setItem("userId", response.data.user.id); // 👈 store userId
-
-            router.push("/dashboard"); // Redirect to the dashboard page
-            toast.success("Login successful");
-        } else {
-            setError("Invalid credentials or missing access token");
-            toast.error("Invalid credentials");
-        }
+        // console.log("Login successful",  response.data.accessToken , response.data.user.id , response.data.user.name );
+        console.log("Login successful", response.data);
+        router.push("/dashboard");
+        toast.success("Login successful");
+      } else {
+        setError("Invalid credentials or missing access token");
+        toast.error("Invalid credentials");
+      }
     } catch (error) {
-        console.error("Error during authentication:", error);
-        setError("Something went wrong. Please try again later.");
-
-        toast.error("Authentication failed. Please try again.");
+      console.error("Error during authentication:", error);
+      setError("Something went wrong. Please try again later.");
+      toast.error("Authentication failed. Please try again.");
     }
     setPending(false);
-};
+  };
 
-  
-  
   const handleProvider = (event: React.MouseEvent<HTMLButtonElement>, value: "github" | "google") => {
     event.preventDefault();
-    // Handle provider login if needed
     toast.info(`${value} login is not yet implemented.`);
   };
 
   return (
-    <div className="h-full flex items-center justify-center bg-[#1b0918]">
-      <Card className="md:h-auto w-[80%] sm:w-[420px] p-4 sm:p-8">
+    <div
+      className="h-screen w-full flex items-center justify-center"
+      style={{
+        backgroundImage: `url('/bg.jpg')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+
+<div className="absolute top-4 left-4 z-10">
+       <Logo/>
+      </div>
+      <Card className="md:h-auto w-[80%] sm:w-[420px] p-4 sm:p-8 bg-white/90 shadow-2xl rounded-2xl">
         <CardHeader>
-          <CardTitle className="text-center">Sign in</CardTitle>
+          <CardTitle className="text-center">Login</CardTitle>
           <CardDescription className="text-sm text-center text-accent-foreground">
-            Use email or service to sign in
+            Use email or service to Login
           </CardDescription>
         </CardHeader>
+
         {!!error && (
           <div className="bg-destructive/15 p-3 rounded-md flex items-center gap-x-2 text-sm text-destructive mb-6">
             <TriangleAlert />
             <p>{error}</p>
           </div>
         )}
+
         <CardContent className="px-2 sm:px-6">
           <form onSubmit={handleSubmit} className="space-y-3">
             <Input
@@ -97,40 +106,25 @@ const SignIn = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <Button  className="mt-6 w-full p-3 rounded-xl bg-red-100 text-red-600
-              hover:bg-red-200 transition-all duration-300
-              flex items-center justify-center gap-2 font-semibold" size="lg" disabled={pending}>
+            <Button className="w-full" size="lg" disabled={pending}>
               Continue
             </Button>
           </form>
 
           <Separator />
+
           <div className="flex my-2 justify-evenly mx-auto items-center">
-            <Button
-              disabled={false}
-              onClick={() => {}}
-              variant="outline"
-              size="lg"
-              className="bg-slate-300 hover:bg-slate-400 hover:scale-110"
-            >
+            <Button variant="outline" size="lg" className="bg-slate-300 hover:bg-slate-400 hover:scale-110">
               <FcGoogle className="size-8 left-2.5 top-2.5" />
             </Button>
-            <Button
-              disabled={false}
-              onClick={(e) => handleProvider(e, "github")}
-              variant="outline"
-              size="lg"
-              className="bg-slate-300 hover:bg-slate-400 hover:scale-110"
-            >
+            <Button onClick={(e) => handleProvider(e, "github")} variant="outline" size="lg" className="bg-slate-300 hover:bg-slate-400 hover:scale-110">
               <FaGithub className="size-8 left-2.5 top-2.5" />
             </Button>
           </div>
+
           <p className="text-center text-sm mt-2 text-muted-foreground">
             Create new account
-            <Link
-              className="text-sky-700 ml-4 hover:underline cursor-pointer"
-              href="sign-up"
-            >
+            <Link className="text-sky-700 ml-4 hover:underline cursor-pointer" href="sign-up">
               Sign Up
             </Link>
           </p>

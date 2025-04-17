@@ -1,7 +1,6 @@
 "use client";
 
-//shadcn ui
-
+// shadcn ui
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,16 +11,17 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { validateSignupForm } from "./signupValidation"; 
 
 import Link from "next/link";
-
-//react icons
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { TriangleAlert } from "lucide-react";
+import Image from "next/image";  // Add this import for image component
+import Logo from "@/components/ui/logo";
 
 const SignUp = () => {
   const [form, setForm] = useState({
@@ -31,34 +31,42 @@ const SignUp = () => {
     confirmPassword: "",
   });
   const [pending, setPending] = useState(false);
-  const [error, setError] = useState(null);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setPending(true);
-    console.log('Form Data:', form);
 
-    const res = await fetch("https://backend-portal-l8rn.onrender.com/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-    const data = await res.json();
+    const validationErrors = validateSignupForm(form);
+    setErrors(validationErrors);
 
-    if (res.ok) {
+    if (Object.keys(validationErrors).length > 0) {
+      toast.error(`❌ Please fix the errors in the form.`);
       setPending(false);
-      toast.success(data.message);
-      router.push("/sign-in");
-    } else if (res.status === 400) {
-      setError(data.message);
-      setPending(false);
-      toast.error(`❌ ${data.message} Error submitting sigup`);
+      return;
+    }
 
-    } else if (res.status === 500) {
-      setError(data.message);
-      toast.error(`❌ Error submitting sigup`);
+    try {
+      const res = await fetch(`http://localhost:8080/auth/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
 
+      const data = await res.json();
+
+      if (res.ok) {
+        setPending(false);
+        toast.success(data.message);
+        router.push("/sign-in");
+      } else {
+        setErrors({ general: data.message });
+        toast.error(`❌ ${data.message}`);
+        setPending(false);
+      }
+    } catch (error) {
+      toast.error(`❌ Something went wrong`);
       setPending(false);
     }
   };
@@ -70,69 +78,106 @@ const SignUp = () => {
     event.preventDefault();
     signIn(value, { callbackUrl: "/" });
   };
+
   return (
-    <div className="h-full flex items-center justify-center bg-[#1b0918]">
-      <Card className="md:h-auto w-[80%] sm:w-[420px] p-4 sm:p-8">
+    <div
+      className="h-screen w-full flex items-center justify-center relative"
+      style={{
+        backgroundImage: `url('/1.jpg')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      {/* Logo positioned at the top left corner */}
+      <div className="absolute top-4 left-4 z-10">
+       <Logo/>
+      </div>
+
+      <Card className="md:h-auto w-[80%] sm:w-[420px] p-4 sm:p-8 bg-white/90 backdrop-blur rounded-2xl shadow-2xl">
         <CardHeader>
           <CardTitle className="text-center">Sign up</CardTitle>
           <CardDescription className="text-sm text-center text-accent-foreground">
-            Use email or service, to create account
+            Use email or service, to create an account
           </CardDescription>
         </CardHeader>
-        {!!error && (
+
+        {errors.general && (
           <div className="bg-destructive/15 p-3 rounded-md flex items-center gap-x-2 text-sm text-destructive mb-6">
             <TriangleAlert />
-            <p>{error}</p>
+            <p>{errors.general}</p>
           </div>
         )}
+
         <CardContent className="px-2 sm:px-6">
           <form onSubmit={handleSubmit} className="space-y-3">
-            <Input
-              type="text"
+            <div className="field">
+              <Input
+                type="text"
+                disabled={pending}
+                placeholder="Full name"
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                className={`input ${errors.name ? "border-red-500 bg-red-100" : ""}`}
+                required
+              />
+              {errors.name && <p className="text-red-500 text-xs">{errors.name}</p>}
+            </div>
+
+            <div className="field">
+              <Input
+                type="email"
+                disabled={pending}
+                placeholder="Email"
+                value={form.email}
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                className={`input ${errors.email ? "border-red-500 bg-red-100" : ""}`}
+                required
+              />
+              {errors.email && <p className="text-red-500 text-xs">{errors.email}</p>}
+            </div>
+
+            <div className="field">
+              <Input
+                type="password"
+                disabled={pending}
+                placeholder="Password"
+                value={form.password}
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
+                className={`input ${errors.password ? "border-red-500 bg-red-100" : ""}`}
+                required
+              />
+              {errors.password && <p className="text-red-500 text-xs">{errors.password}</p>}
+            </div>
+
+            <div className="field">
+              <Input
+                type="password"
+                disabled={pending}
+                placeholder="Confirm Password"
+                value={form.confirmPassword}
+                onChange={(e) => setForm({ ...form, confirmPassword: e.target.value })}
+                className={`input ${errors.confirmPassword ? "border-red-500 bg-red-100" : ""}`}
+                required
+              />
+              {errors.confirmPassword && <p className="text-red-500 text-xs">{errors.confirmPassword}</p>}
+            </div>
+
+            <Button
+              className="mt-6 w-full p-3 rounded-xl bg-red-100 text-red-600 hover:bg-red-200 transition-all duration-300 flex items-center justify-center gap-2 font-semibold"
+              size="lg"
               disabled={pending}
-              placeholder="Full name"
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-              required
-            />
-            <Input
-              type="email"
-              disabled={pending}
-              placeholder="email"
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              required
-            />
-            <Input
-              type="password"
-              disabled={pending}
-              placeholder="password"
-              value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
-              required
-            />
-            <Input
-              type="password"
-              disabled={pending}
-              placeholder="confirm password"
-              value={form.confirmPassword}
-              onChange={(e) =>
-                setForm({ ...form, confirmPassword: e.target.value })
-              }
-              required
-            />
-            <Button  className="mt-6 w-full p-3 rounded-xl bg-red-100 text-red-600
-              hover:bg-red-200 transition-all duration-300
-              flex items-center justify-center gap-2 font-semibold" size="lg" disabled={pending}>
-              continue
+            >
+              Continue
             </Button>
           </form>
 
           <Separator />
+
           <div className="flex my-2 justify-evenly mx-auto items-center">
             <Button
               disabled={false}
-              onClick={() => {}}
+              onClick={(e) => handleProvider(e, "google")}
               variant="outline"
               size="lg"
               className="bg-slate-300 hover:bg-slate-400 hover:scale-110"
@@ -141,7 +186,7 @@ const SignUp = () => {
             </Button>
             <Button
               disabled={false}
-              onClick={(e) => handleProvider(e,"github")}
+              onClick={(e) => handleProvider(e, "github")}
               variant="outline"
               size="lg"
               className="bg-slate-300 hover:bg-slate-400 hover:scale-110"
@@ -149,13 +194,14 @@ const SignUp = () => {
               <FaGithub className="size-8 left-2.5 top-2.5" />
             </Button>
           </div>
+
           <p className="text-center text-sm mt-2 text-muted-foreground">
             Already have an account?
             <Link
               className="text-sky-700 ml-4 hover:underline cursor-pointer"
               href="sign-in"
             >
-               Login{" "}
+              Login
             </Link>
           </p>
         </CardContent>
@@ -165,7 +211,8 @@ const SignUp = () => {
 };
 
 export default SignUp;
-function signIn(value: string, arg1: { callbackUrl: string; }) {
-  throw new Error("Function not implemented.");
-}
 
+// Placeholder function for social sign-ins
+function signIn(value: string, { callbackUrl }: { callbackUrl: string }) {
+  console.log(`Sign-in with ${value} is triggered! Redirecting to ${callbackUrl}`);
+}
