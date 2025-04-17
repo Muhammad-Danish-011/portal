@@ -254,8 +254,6 @@ const fetchHeavyMachinery = async () => {
     }
 };
 
-
-
     if (isLoading) return <LoadingSpinner />;
     if (!token) return <AccessRequired />;
 
@@ -267,7 +265,7 @@ const fetchHeavyMachinery = async () => {
     return (
         <div className="min-h-screen bg-gray-900 p-0 flex">
 
-            <div className="absolute top-1 right-1 z-10 ">
+            <div className="absolute top-1 right-1 z-10 md:block hidden">
                 <Logo />
             </div>
             <Sidebar
@@ -286,6 +284,9 @@ const fetchHeavyMachinery = async () => {
             {/* Remove rounded and margin */}
             <div className="flex-1 bg-white shadow-2xl border border-gray-200 ">
                 <div className="p-8">
+                    <div className="md:hidden block mb-4">
+                        <Logo />
+                    </div>
                     <h2 className="text-4xl font-extrabold mb-8 text-black text-center">
                         Universal Motors Registration Dashboard
                     </h2>
@@ -407,6 +408,4 @@ const fetchHeavyMachinery = async () => {
                 </div>
             </div>
         </div>
-
-    )
-}
+    )}
