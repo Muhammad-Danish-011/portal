@@ -9,7 +9,7 @@ export const CarDetailsTable: React.FC<CarDetailsTableProps> = ({ car }) => {
       const label =
         key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, " $1");
       const value = car[key as keyof carsRegistration] ?? "N/A";
-      console.log(car.imageUrl);
+      // console.log(car.imageUrl);
       if (key === "imageBase64") return null; // Do not include base64 in car details
 
       if (key === "imageUrl") return null; // Do not include base64 in car details
