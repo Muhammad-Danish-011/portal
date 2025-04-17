@@ -107,7 +107,7 @@ const FormForCar = () => {
         try {
             setLoading(true);
 
-            const response = await fetch("http://localhost:8080/api/cars", {
+            const response = await fetch("https://backend-portal-hinb.onrender.com/api/cars", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

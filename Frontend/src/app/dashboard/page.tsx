@@ -12,8 +12,8 @@ import { CarDetailsTable } from "@/components/ui/table"; // Ensure correct impor
 import { getUserDetailsFromToken, getUserIdFromToken } from "@/utils/getUserIdFromToken";
 import { toast } from "sonner";
 import Logo from "@/components/ui/logo";
-import HeavyMachineryForm from "@/components/functional/formForHeavyMachinery";
-import TruckForm from "@/components/functional/formForTrucks";
+// import HeavyMachineryForm from "@/components/functional/formForHeavyMachinery";
+// import TruckForm from "@/components/functional/formForTrucks";
 // import CarForm from "@/components/functional/formForCar";
 import { carsRegistration } from "@/lib/types/typeCarsRegistration";
 import { truckRegistration } from "@/lib/types/typeTruckRegistration";
@@ -117,7 +117,7 @@ const fetchCars = async () => {
     }
 
     try {
-        const res = await fetch(`http://localhost:8080/api/cars?userId=${userId}`, {
+        const res = await fetch(`https://backend-portal-hinb.onrender.com/api/cars?userId=${userId}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
@@ -167,7 +167,7 @@ const fetchTrucks = async () => {
     }
 
     try {
-        const res = await fetch(`http://localhost:8080/api/truck?userId=${userId}`, {
+        const res = await fetch(`https://backend-portal-hinb.onrender.com/api/truck?userId=${userId}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
@@ -216,7 +216,7 @@ const fetchHeavyMachinery = async () => {
     }
 
     try {
-        const res = await fetch(`http://localhost:8080/api/heavy?userId=${userId}`, {
+        const res = await fetch(`https://backend-portal-hinb.onrender.com/api/heavy?userId=${userId}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
