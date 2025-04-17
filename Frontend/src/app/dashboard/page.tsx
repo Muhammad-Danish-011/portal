@@ -262,9 +262,8 @@ const fetchHeavyMachinery = async () => {
 
 
     return (
-        <div className="min-h-screen bg-gray-900 p-0 flex">
-
-            <div className="absolute top-1 right-1 z-10 md:block hidden">
+<div className="min-h-screen bg-gray-900 p-0 flex w-full">
+<div className="absolute top-1 right-1 z-10 md:block hidden">
                 <Logo />
             </div>
             <Sidebar
