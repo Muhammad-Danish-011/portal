@@ -26,7 +26,6 @@ export default function Dashboard() {
     const [cars, setCars] = useState<any[]>([]);
     const [trucks, setTrucks] = useState<any[]>([]);
     const [heavy, setHeavy] = useState<any[]>([]);
-
     const [selectedCar, setSelectedCar] = useState<any | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [showForm, setShowForm] = useState(false);

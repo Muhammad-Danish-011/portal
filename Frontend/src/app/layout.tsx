@@ -39,13 +39,16 @@ export default function RootLayout({
           richColors // enables default green/red tones
           toastOptions={{
             style: {
-              background: 'red', color: '#f3f4f6',
+              background: 'red', 
+              color: '#f3f4f6',
               border: '1px solid rgb(81, 57, 55)',
               borderRadius: '10px',
               fontWeight: 'bold',
-              fontSize: '16px',
-              padding: '16px 20px',
+              fontSize: '14px',
+              padding: '12px 16px',
               boxShadow: '0 8px 12px -2px rgba(0,0,0,0.4)',
+              maxWidth: '90vw',
+              margin: '0 auto',
             },
             classNames: {
               error:
@@ -55,8 +58,6 @@ export default function RootLayout({
             },
           }}
         />
-
-
         {children}
       </body>
     </html>
