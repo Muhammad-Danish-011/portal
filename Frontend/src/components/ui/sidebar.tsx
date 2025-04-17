@@ -18,16 +18,17 @@ const Sidebar: React.FC<SidebarProps> = ({ cars, trucks, heavyMachinery, onCarCl
         <div className="flex h-screen overflow-hidden relative">
             {/* Sidebar */}
             <div
-                className={`fixed top-0 left-0 h-full z-40 transition-transform duration-500 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'
-                    }`}
+                className={`fixed top-0 left-0 h-full z-40 transition-transform duration-500 ease-in-out ${
+                    isOpen ? 'translate-x-0' : '-translate-x-full'
+                } md:translate-x-0 md:relative`}
             >
-                <div className="w-80 h-full bg-white p-6 shadow-xl border-r border-gray-200 flex flex-col relative">
-                    <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b border-gray-300 pb-2">
+                <div className="w-[85vw] md:w-80 h-full bg-white p-6 shadow-xl border-r border-gray-200 flex flex-col relative overflow-y-auto">
+                    <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 border-b border-gray-300 pb-2 sticky top-0 bg-white">
                         Registered Vehicles
                     </h2>
                     {/* Cars Section */}
                     <div className="mb-6">
-                        <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b border-gray-300 pb-2">
+                        <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 border-b border-gray-300 pb-2 sticky top-16 bg-white">
                             Cars
                         </h2>
                         <ul className="space-y-2">
@@ -48,7 +49,7 @@ const Sidebar: React.FC<SidebarProps> = ({ cars, trucks, heavyMachinery, onCarCl
 
                     {/* Trucks Section */}
                     <div className="mb-6">
-                        <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b border-gray-300 pb-2">
+                        <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 border-b border-gray-300 pb-2 sticky top-32 bg-white">
                             Trucks
                         </h2>
                         <ul className="space-y-2">
@@ -69,7 +70,7 @@ const Sidebar: React.FC<SidebarProps> = ({ cars, trucks, heavyMachinery, onCarCl
 
                     {/* Heavy Machinery Section */}
                     <div className="mb-6">
-                        <h2 className="text-2xl font-bold text-gray-800 mb-4 border-b border-gray-300 pb-2">
+                        <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 border-b border-gray-300 pb-2 sticky top-48 bg-white">
                             Heavy Machinery
                         </h2>
                         <ul className="space-y-2">
@@ -90,7 +91,7 @@ const Sidebar: React.FC<SidebarProps> = ({ cars, trucks, heavyMachinery, onCarCl
 
                     <button
                         onClick={onLogout}
-                        className="mt-auto w-full p-3 rounded-xl bg-red-100 text-red-600
+                        className="sticky bottom-0 w-full p-3 rounded-xl bg-red-100 text-red-600
                     hover:bg-red-200 transition-all duration-300
                     flex items-center justify-center gap-2 font-semibold"
                     >
@@ -105,8 +106,8 @@ const Sidebar: React.FC<SidebarProps> = ({ cars, trucks, heavyMachinery, onCarCl
             {/* Sidebar Toggle Button */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className={`fixed top-0 z-50 transition-all duration-300 
-        ${isOpen ? 'left-[320px]' : 'left-0'} group/toggler`}
+                className={`fixed top-4 z-50 transition-all duration-300 
+        ${isOpen ? 'left-[85vw]' : 'left-4'} md:hidden`}
             >
                 <div
                     className="bg-white text-gray-700 hover:bg-black hover:text-white 
@@ -131,13 +132,12 @@ const Sidebar: React.FC<SidebarProps> = ({ cars, trucks, heavyMachinery, onCarCl
 
             {/* Main Content */}
             <main
-                className={`transition-all duration-500 h-full w-full overflow-auto ${isOpen ? 'ml-80' : 'ml-0'
-                    }`}
+                className={`transition-all duration-500 h-full w-full overflow-auto 
+                ${isOpen ? 'ml-0 md:ml-80' : 'ml-0'}`}
             >
                 {children}
             </main>
-        </div>
-    )
-}
 
-export default Sidebar;
+        </div>
+    )}
+    export default Sidebar;
