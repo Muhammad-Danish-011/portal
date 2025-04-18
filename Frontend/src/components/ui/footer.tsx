@@ -2,8 +2,8 @@ import Image from "next/image";
 
 function Footer() {
     return (
-        <footer className="bg-gray-900 text-white pt-6 pb-4">
-            <div className="container mx-auto px-4">
+        <footer className="bg-gray-900 text-white pt-6 pb-4 ">
+            <div className="container mx-auto px-4 mr-6">
                 {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8"> */}
                     {/* Column 1 - Headquarters */}
                     {/* <div>
