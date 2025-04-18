@@ -5,6 +5,7 @@ import { getUserIdFromToken } from '@/utils/getUserIdFromToken';
 import { toast } from 'sonner';
 import { heavyMachineryRegistration } from '@/lib/types/typeheavyMachineryRegistration';
 import { heavyMachineryFormSchema } from '@/components/functional/FormValidations/heavyMachineryValidation';
+import Footer from '@/components/ui/footer';
 
 const FormForHeavyMachinery = () => {
     const model = ['Civic', 'Corolla', 'City', 'Swift', 'Cultus', 'Alto'];
@@ -295,7 +296,9 @@ const FormForHeavyMachinery = () => {
                     </Form>
                 )}
             </Formik>
+            <Footer/>
         </div>
+       
     );
 };
 

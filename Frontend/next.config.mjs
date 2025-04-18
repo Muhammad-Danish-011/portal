@@ -4,7 +4,8 @@ const nextConfig = {
       ignoreDuringBuilds: true, // Ignore ESLint errors during the build process
     },
     images: {
-        domains: ['universalmotorsltd.com'], // Add the external domain here
+        domains: ['universalmotorsltd.com'], 
+        domains: ['universalmotorstorage.blob.core.windows.net'],
       },
   };
   

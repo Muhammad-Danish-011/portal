@@ -24,7 +24,7 @@ const Header = ({ user, stockCount, isUpdate, checkUser, locations }: HeaderProp
         <>
     {/* Mobile Stock Count */}
     <div className="flex justify-center headerbg text-center container-fluid font-semibold text-[#221C63] bg-[#fab619] py-2 text-sm md:text-base">
-        Total Stock:
+        Total Registered:
         <span className="pl-3">
             <NumberFormat numbers={stockCount} />
         </span>
