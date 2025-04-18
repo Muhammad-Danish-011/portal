@@ -4,7 +4,7 @@ import Image from "next/image"; // Importing the Next.js Image component for opt
 
 const Logo = () => {
   return (
-    <div className="flex justify-center items-center mb-2 rounded-lg bg-gray-500/30">
+    <div className="flex justify-center items-center mb-2 rounded-lg bg-slate-800">
       <Image src={"/logo.png"}     
         alt="Universal Motors Logo"
         width={100}
