@@ -86,9 +86,6 @@ const FormForCar = () => {
         reader.readAsDataURL(file);
     };
 
-
-
-
     const handleSubmit = async (formData: carsRegistration) => {
         console.log("Form submitted with data:", formData);
 
@@ -103,10 +100,8 @@ const FormForCar = () => {
             toast.error("⚠️ Required fields are missing!");
             return;
         }
-
         try {
             setLoading(true);
-
             const response = await fetch("https://backend-portal-hinb.onrender.com/api/cars", {
                 method: "POST",
                 headers: {
@@ -115,20 +110,15 @@ const FormForCar = () => {
                 },
                 body: JSON.stringify(formData),
             });
-
             const data = await response.json();
-
             if (!response.ok) {
                 console.error("API error:", data);
                 toast.error(`❌ ${data.message || "Failed to create car"}`);
                 return;
             }
-
             toast.success("✅ Car listed successfully!");
-              window.location.href = '/dashboard';
-
+            window.location.href = '/dashboard';
             // Optionally reset form or trigger a refetch
-
         } catch (error) {
             console.error("Submission error:", error);
             toast.error("❌ An error occurred during submission.");
@@ -138,7 +128,7 @@ const FormForCar = () => {
     };
 
     return (
-        <div className="p-6 rounded-2xl shadow-lg bg-white w-full min-h-screen">         
+        <div className="p-6 rounded-2xl shadow-lg bg-white w-full min-h-screen">
             <h2 className="text-2xl font-bold mb-6 text-gray-800">Add Vehicle Listing</h2>
 
             <Formik
@@ -223,7 +213,6 @@ const FormForCar = () => {
                         {/* Common Form Group */}
                         {[
                             { label: "Listing Title", name: "listingTitle", type: "text" },
-                            { label: "Dealer Stock", name: "dealerStock", type: "checkbox" },
                             { label: "Engine Size (cc)", name: "engineSize", type: "number" },
                             { label: "Year", name: "year", type: "number" },
                             { label: "Price", name: "price", type: "number" },
@@ -253,6 +242,15 @@ const FormForCar = () => {
                             </div>
                         ))}
 
+                        <div className="flex flex-col gap-1">
+                            <label className="text-sm font-medium text-gray-700">Dealer Stock</label>
+                            <Field
+                                type="checkbox"
+                                name="dealerStock"
+                                className="w-fit ml-2 border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-red-400 focus:outline-none"
+                            />
+                            <ErrorMessage name="dealerStock" component="div" className="text-red-500 text-sm" />
+                        </div>
                         {/* Select Dropdowns */}
                         {[
                             { label: "Make", name: "make", options: makes },

@@ -170,7 +170,6 @@ const FormForHeavyMachinery = () => {
                             { label: "Operational Hours", name: "operationalHours", type: "number" },
                             { label: "Year", name: "year", type: "number" },
                             { label: "Price", name: "price", type: "number" },
-                            { label: "Dealer Stock", name: "dealerStock", type: "checkbox" },
                             { label: "Admin Notes", name: "adminNotes", type: "text" }
                         ].map((field) => (
                             <div key={field.name} className="flex flex-col gap-1">
@@ -213,6 +212,15 @@ const FormForHeavyMachinery = () => {
                                 <ErrorMessage name={dropdown.name} component="div" className="text-red-500 text-sm" />
                             </div>
                         ))}
+                            <div className="flex flex-col gap-1">
+                                                    <label className="text-sm font-medium text-gray-700">Dealer Stock</label>
+                                                    <Field
+                                                        type="checkbox"
+                                                        name="dealerStock"
+                                                        className="w-fit ml-2 border border-gray-300 rounded-xl p-3 focus:ring-2 focus:ring-red-400 focus:outline-none"
+                                                    />
+                                                    <ErrorMessage name="dealerStock" component="div" className="text-red-500 text-sm" />
+                                                </div>
 
                         {/* Car Options */}
                         <div className="flex flex-col gap-2">
