@@ -20,6 +20,7 @@ import { toast } from "sonner";
 import { TriangleAlert } from "lucide-react";
 import axios from "axios";
 import Logo from "@/components/ui/logo";
+import LoadingSpinner from "@/components/ui/loadingSpinner";
 
 const SignIn = () => {
   const [email, setEmail] = useState<string>("");
@@ -37,9 +38,8 @@ const SignIn = () => {
         localStorage.setItem("token", response.data.accessToken);
         localStorage.setItem("userId", response.data.user.id);
         localStorage.setItem("userName", response.data.user.name);
-
         // console.log("Login successful",  response.data.accessToken , response.data.user.id , response.data.user.name );
-        console.log("Login successful", response.data);
+        // console.log("Login successful", response.data);
         router.push("/dashboard");
         toast.success("Login successful");
       } else {
@@ -70,8 +70,8 @@ const SignIn = () => {
       }}
     >
 
-<div className="absolute top-4 left-4 z-10">
-       <Logo/>
+      <div className="absolute top-4 left-4 z-10">
+        <Logo />
       </div>
       <Card className="md:h-auto w-[80%] sm:w-[420px] p-4 sm:p-8 bg-white/90 shadow-2xl rounded-2xl">
         <CardHeader>
@@ -107,8 +107,13 @@ const SignIn = () => {
               required
             />
             <Button className="w-full" size="lg" disabled={pending}>
-              Continue
+              {pending ? (
+               <LoadingSpinner/>
+              ) : (
+                "Continue"
+              )}
             </Button>
+
           </form>
 
           <Separator />

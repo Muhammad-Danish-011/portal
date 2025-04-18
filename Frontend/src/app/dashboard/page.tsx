@@ -63,7 +63,7 @@ export default function Dashboard() {
  // Fetch token and user details on component mount
  useEffect(() => {
     const storedToken = localStorage.getItem("token");
-    console.log("Decoded user details:", getUserDetailsFromToken());
+    // console.log("Decoded user details:", getUserDetailsFromToken());
 
     if (!storedToken) {
         router.push("/"); // If no token, redirect to login page

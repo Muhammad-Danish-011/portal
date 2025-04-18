@@ -19,7 +19,7 @@ export function getUserIdFromToken() {
   try {
     const decoded: any = jwtDecode(token);
     // Add debug logging to check decoded token contents
-    console.log("Decoded token:", decoded);
+    // console.log("Decoded token:", decoded);
     return {
       id: decoded._id,
       name: decoded.name, 
