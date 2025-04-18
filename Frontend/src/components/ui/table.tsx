@@ -8,8 +8,13 @@ export const CarDetailsTable: React.FC<CarDetailsTableProps> = ({ car }) => {
     .map((key) => {
       const label =
         key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, " $1");
-      const value = car[key as keyof carsRegistration] ?? "N/A";
+      let value = car[key as keyof carsRegistration] ?? "N/A";
+      if (key === "dealerStock") {
+        value = value === true ? "Yes" : "No";
+      }
       if (key === "imageBase64") return null;
+      if (key === "_id") return null;
+      if (key === "__v") return null;
       if (key === "imageUrl") return null;
       return { label, value };
     })
