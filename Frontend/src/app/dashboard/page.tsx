@@ -305,9 +305,17 @@ const fetchHeavyMachinery = async () => {
                 <h2 className="text-base md:text-lg text-gray-500 mt-2 md:mt-4 font-medium">
                     You have registered
                     <span className="font-bold text-red-500 mx-2">{cars.length}</span>
-                    vehicles across
+                    cars,
+                    <span className="font-bold text-red-500 mx-2">{trucks.length}</span>
+                    trucks, and
+                    <span className="font-bold text-red-500 mx-2">{heavy.length}</span>
+                    heavy machinery across
                     <span className="font-bold text-red-500 mx-2">
-                        {new Set(cars.map(car => car.registrationCity)).size}
+                        {new Set([
+                            ...cars.map(car => car.registrationCity),
+                            ...trucks.map(truck => truck.registrationCity),
+                            ...heavy.map(machine => machine.registrationCity)
+                        ]).size}
                     </span>
                     cities
                 </h2>
