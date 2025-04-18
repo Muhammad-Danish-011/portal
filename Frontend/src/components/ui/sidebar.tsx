@@ -23,83 +23,85 @@ const Sidebar: React.FC<SidebarProps> = ({ cars, trucks, heavyMachinery, onCarCl
                 } md:translate-x-0 md:relative`}
             >
                 <div className="w-[85vw] md:w-80 h-full bg-white p-6 shadow-xl border-r border-gray-200 flex flex-col relative overflow-y-auto">
-                    <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 border-b border-gray-300 pb-2 sticky top-0 bg-white">
-                        Registered Vehicles
-                    </h2>
-                    {/* Cars Section */}
-                    <div className="mb-6">
-                        <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 border-b border-gray-300 pb-2 sticky top-16 bg-white">
-                            Cars
+                    <div className="space-y-6">
+                        <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 border-b border-gray-300 pb-2">
+                            Registered Vehicles
                         </h2>
-                        <ul className="space-y-2">
-                            {cars.map((car, index) => (
-                                <li
-                                    key={`car-${index}`}
-                                    className="p-3 rounded-xl bg-white/30 backdrop-blur-md border border-gray-200 
-                        shadow-sm cursor-pointer transition-all duration-300
-                        hover:bg-blue-100/50 hover:border-blue-300 hover:scale-[1.02]"
-                                    onClick={() => onCarClick(car)}
-                                >
-                                    <div className="font-semibold text-gray-800">{car.make}</div>
-                                    <div className="text-sm text-gray-500">{car.modelName}</div>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                        {/* Cars Section */}
+                        <div>
+                            <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 border-b border-gray-300 pb-2">
+                                Cars
+                            </h2>
+                            <ul className="space-y-2">
+                                {cars.map((car, index) => (
+                                    <li
+                                        key={`car-${index}`}
+                                        className="p-3 rounded-xl bg-white/30 backdrop-blur-md border border-gray-200 
+                            shadow-sm cursor-pointer transition-all duration-300
+                            hover:bg-blue-100/50 hover:border-blue-300 hover:scale-[1.02]"
+                                        onClick={() => onCarClick(car)}
+                                    >
+                                        <div className="font-semibold text-gray-800">{car.make}</div>
+                                        <div className="text-sm text-gray-500">{car.modelName}</div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
 
-                    {/* Trucks Section */}
-                    <div className="mb-6">
-                        <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 border-b border-gray-300 pb-2 sticky top-32 bg-white">
-                            Trucks
-                        </h2>
-                        <ul className="space-y-2">
-                            {trucks.map((truck, index) => (
-                                <li
-                                    key={`truck-${index}`}
-                                    className="p-3 rounded-xl bg-white/30 backdrop-blur-md border border-gray-200 
-                        shadow-sm cursor-pointer transition-all duration-300
-                        hover:bg-orange-100/50 hover:border-orange-300 hover:scale-[1.02]"
-                                    onClick={() => onCarClick(truck)}
-                                >
-                                    <div className="font-semibold text-gray-800">{truck.make}</div>
-                                    <div className="text-sm text-gray-500">{truck.modelName}</div>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                        {/* Trucks Section */}
+                        <div>
+                            <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 border-b border-gray-300 pb-2">
+                                Trucks
+                            </h2>
+                            <ul className="space-y-2">
+                                {trucks.map((truck, index) => (
+                                    <li
+                                        key={`truck-${index}`}
+                                        className="p-3 rounded-xl bg-white/30 backdrop-blur-md border border-gray-200 
+                            shadow-sm cursor-pointer transition-all duration-300
+                            hover:bg-orange-100/50 hover:border-orange-300 hover:scale-[1.02]"
+                                        onClick={() => onCarClick(truck)}
+                                    >
+                                        <div className="font-semibold text-gray-800">{truck.make}</div>
+                                        <div className="text-sm text-gray-500">{truck.modelName}</div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
 
-                    {/* Heavy Machinery Section */}
-                    <div className="mb-6">
-                        <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 border-b border-gray-300 pb-2 sticky top-48 bg-white">
-                            Heavy Machinery
-                        </h2>
-                        <ul className="space-y-2">
-                            {heavyMachinery.map((machine, index) => (
-                                <li
-                                    key={`machine-${index}`}
-                                    className="p-3 rounded-xl bg-white/30 backdrop-blur-md border border-gray-200 
-                        shadow-sm cursor-pointer transition-all duration-300
-                        hover:bg-green-100/50 hover:border-green-300 hover:scale-[1.02]"
-                                    onClick={() => onCarClick(machine)}
-                                >
-                                    <div className="font-semibold text-gray-800">{machine.make}</div>
-                                    <div className="text-sm text-gray-500">{machine.modelName}</div>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                        {/* Heavy Machinery Section */}
+                        <div>
+                            <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4 border-b border-gray-300 pb-2">
+                                Heavy Machinery
+                            </h2>
+                            <ul className="space-y-2">
+                                {heavyMachinery.map((machine, index) => (
+                                    <li
+                                        key={`machine-${index}`}
+                                        className="p-3 rounded-xl bg-white/30 backdrop-blur-md border border-gray-200 
+                            shadow-sm cursor-pointer transition-all duration-300
+                            hover:bg-green-100/50 hover:border-green-300 hover:scale-[1.02]"
+                                        onClick={() => onCarClick(machine)}
+                                    >
+                                        <div className="font-semibold text-gray-800">{machine.make}</div>
+                                        <div className="text-sm text-gray-500">{machine.modelName}</div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
 
-                    <button
-                        onClick={onLogout}
-                        className="sticky bottom-0 w-full p-3 rounded-xl bg-red-100 text-red-600
-                    hover:bg-red-200 transition-all duration-300
-                    flex items-center justify-center gap-2 font-semibold"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M3 3a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3zm11 4.5a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1 0-1h5a.5.5 0 0 1 .5.5zm0 2a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1 0-1h5a.5.5 0 0 1 .5.5zm-7 0a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1 0-1h1a.5.5 0 0 1 .5.5z" clipRule="evenodd" />
-                        </svg>
-                        Logout
-                    </button>
+                        <button
+                            onClick={onLogout}
+                            className="w-full p-3 rounded-xl bg-red-100 text-red-600
+                        hover:bg-red-200 transition-all duration-300
+                        flex items-center justify-center gap-2 font-semibold"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M3 3a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H3zm11 4.5a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1 0-1h5a.5.5 0 0 1 .5.5zm0 2a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1 0-1h5a.5.5 0 0 1 .5.5zm-7 0a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1 0-1h1a.5.5 0 0 1 .5.5z" clipRule="evenodd" />
+                            </svg>
+                            Logout
+                        </button>
+                    </div>
                 </div>
             </div>
 
